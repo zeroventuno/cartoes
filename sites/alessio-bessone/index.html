@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="pt-BR" data-skin="mattio" data-only="mattio">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Alessio Bessone · Officine Mattio</title>
+<meta name="description" content="Alessio Bessone · Coordinatore, Officine Mattio. Salve meu contato." />
+<meta name="theme-color" content="#ffffff" />
+<meta property="og:title" content="Alessio Bessone · Officine Mattio" />
+<meta property="og:description" content="Coordinatore · Officine Mattio · Cuneo, Italia" />
+<meta property="og:type" content="profile" />
+<meta property="og:image" content="https://cartao.zeroventuno.com/alessio-bessone/assets/og-alessio.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Alessio Bessone · Officine Mattio" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="assets/icon-om/icon-192.png" type="image/png" />
+<link rel="apple-touch-icon" href="assets/icon-om/apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="apple-mobile-web-app-title" content="Alessio OM" />
+
+<style>
+  /* ---------- Fonts: self-hosted, so the card has no third-party dependency.
+     Browsers fetch each file only when a skin first needs it. ---------- */
+  @font-face{font-family:"Aileron";src:url(assets/fonts/aileron-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Aileron";src:url(assets/fonts/aileron-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"Aileron";src:url(assets/fonts/aileron-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
+
+  @property --r{syntax:"<length>";inherits:false;initial-value:0px}
+
+  /* ---------- Skins: every value below comes from that project's own code ---------- */
+  html[data-skin="mattio"]{
+    --bg:#ffffff;--surface:#ffffff;--raise:#f2f2f2;--ink:#0a0a0a;--muted:rgba(10,10,10,.6);--line:rgba(10,10,10,.12);
+    --acc:#0a0a0a;--acc-text:#292d30;--on-acc:#ffffff;
+    --display:"Aileron",Helvetica,Arial,sans-serif;--body:"Aileron",Helvetica,Arial,sans-serif;--label:"Aileron",Helvetica,Arial,sans-serif;
+    --r-card:0px;--r-btn:99px;--r-row:0px;--ease:cubic-bezier(.4,0,.2,1);
+    --qr-bg:#ffffff;--qr-fg:#0a0a0a;
+  }
+
+  /* ---------- Shared structure ---------- */
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  html{background:var(--bg);-webkit-text-size-adjust:100%}
+  body{
+    min-height:100svh;display:flex;justify-content:center;
+    background:var(--bg);color:var(--ink);font-family:var(--body);
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  a{color:inherit}
+  button{font:inherit;color:inherit}
+  .fx{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .card{
+    position:relative;z-index:1;width:100%;max-width:440px;
+    background:var(--surface);
+    padding-bottom:calc(96px + env(safe-area-inset-bottom));
+    overflow:hidden;
+  }
+  @media (min-width:520px){
+    body{padding:32px 0 0}
+    .card{border:1px solid var(--line);border-radius:var(--r-card);align-self:flex-start;margin-bottom:112px;padding-bottom:12px}
+    .hero{height:min(782px,calc(100svh - 120px))}
+    .over{padding-bottom:20px}
+  }
+
+  /* Hero */
+  .hero{position:relative;height:100svh;min-height:560px;overflow:hidden;background:#000}
+  .media,.media img,.media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block}
+  #heroClip{animation:none!important}
+  #heroClip[hidden]{display:none}
+  .media video{opacity:.01;transition:opacity .5s} /* not 0: iOS can refuse autoplay for an invisible video */
+  .media video.on{opacity:1}
+  .hero::after{content:"";position:absolute;inset:0 0 auto;height:42%;background:linear-gradient(180deg,rgba(0,0,0,.6),transparent);pointer-events:none}
+  .bar{position:absolute;z-index:2;top:max(16px,env(safe-area-inset-top));left:20px;right:20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .bar img{height:24px;width:auto;max-width:62%;display:block}
+  .count{font:500 11px/1 var(--label);letter-spacing:.14em;color:#fff}
+
+  /* Identity */
+  /* White on a dark scrim in every skin, so the name reads on any photo. Bottom padding clears the dock and the hint. */
+  .over{
+    position:absolute;z-index:2;left:0;right:0;bottom:0;
+    padding:72px 20px calc(max(14px,env(safe-area-inset-bottom)) + 100px);
+    background:linear-gradient(180deg,transparent,rgba(0,0,0,.5) 30%,rgba(0,0,0,.82));
+    --ink:#fff;--acc-text:#fff;
+  }
+  .over .save{margin-top:16px}
+  .body{position:relative;padding:14px 20px 0}
+  .eyebrow{margin:0 0 8px;font:500 11px/1.3 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--acc-text)}
+  h1{margin:0 0 10px;font-family:var(--display);line-height:1;color:var(--ink)}
+  .role{margin:0;font-size:15px;line-height:1.4;color:var(--ink);font-weight:500}
+
+  /* Current project */
+  .project{margin:20px 0 22px;padding:16px 0;border-block:1px solid var(--line)}
+  .tag{margin:0 0 6px;font-family:var(--display);font-size:21px;line-height:1.14;color:var(--ink)}
+  .desc{margin:0 0 10px;font-size:14.5px;line-height:1.45;color:var(--muted)}
+  .promo{margin-top:14px;padding:14px;border:1px dashed var(--line);border-radius:var(--r-row)}
+  .promo-tx{margin:0 0 10px;font:600 13px/1.35 var(--body)}
+  .promo-row{display:flex;gap:8px;flex-wrap:wrap}
+  .promo-code{flex:1 1 150px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:0 16px;border:1px solid var(--ink);border-radius:var(--r-btn);background:transparent;color:var(--ink);font:700 15px/1 var(--label);letter-spacing:.12em;cursor:pointer}
+  .promo-code svg,.promo-go svg{width:16px;height:16px}
+  .promo-go{flex:1 1 120px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:0 16px;border-radius:var(--r-btn);background:var(--acc);color:var(--on-acc);font:600 12px/1 var(--label);text-transform:uppercase;letter-spacing:.08em;text-decoration:none}
+  .visit{display:inline-flex;align-items:center;gap:6px;min-height:32px;font:500 13px/1 var(--label);color:var(--acc-text);text-decoration:none}
+  .visit svg{width:14px;height:14px}
+  .visit:hover{text-decoration:underline}
+
+  /* Actions */
+  .save{
+    width:100%;min-height:54px;border:0;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    background:var(--acc);color:var(--on-acc);border-radius:var(--r-btn);
+    font-family:var(--body);font-size:15.5px;font-weight:650;
+    transition:transform .12s ease,filter .2s ease;
+  }
+  .save svg{width:18px;height:18px;flex:none}
+  .save:hover{filter:brightness(1.07)}
+  .save:active{transform:translateY(1px)}
+  .actions,.quick{display:grid;gap:8px;margin-top:8px}
+  .actions{grid-template-columns:1fr 1fr}
+  .quick{grid-template-columns:repeat(3,1fr)}
+  .actions button,.quick a{
+    display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:8px 6px;
+    border:1px solid var(--line);border-radius:var(--r-btn);background:transparent;
+    color:var(--ink);text-decoration:none;font-size:13.5px;font-weight:550;cursor:pointer;
+    transition:background .18s ease,border-color .18s ease,transform .12s ease;
+  }
+  .quick a{flex-direction:column;gap:6px;min-height:64px;font-size:12.5px}
+  .actions svg,.quick svg{width:18px;height:18px;color:var(--acc-text);flex:none}
+  .actions button:hover,.quick a:hover{background:var(--raise)}
+  .actions button:active,.quick a:active{transform:translateY(1px)}
+
+  /* Links */
+  .sep{margin:24px 0 4px;font:500 11px/1.3 var(--label);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .social{display:flex;align-items:center;gap:13px;min-height:60px;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none}
+  .social .ic{width:20px;height:20px;flex:none;color:var(--acc-text)}
+  .social .ic svg{width:100%;height:100%;display:block}
+  .social .tx{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .social .name{font-size:14.5px;font-weight:600}
+  .social .sub{font-size:12.5px;color:var(--muted)}
+  .social .go{margin-left:auto;width:16px;height:16px;color:var(--muted)}
+  .social:hover .name{color:var(--acc-text)}
+  footer{margin:22px 0 14px;font-size:12px;color:var(--muted)}
+
+  /* ---------- Skin personalities ---------- */
+  /* Officine Mattio: black and white, Aileron, pill buttons, second line at 60% as in "Choose / to be." */
+  [data-skin="mattio"] .bar img{height:22px;filter:brightness(0) invert(1)}
+  [data-skin="mattio"] .hero::after{opacity:.45}
+  /* One-brand build: no dock, so no room is kept for it */
+  .dock[hidden],.hint[hidden],.count[hidden],.role[hidden],.sep[hidden],#socials[hidden]{display:none!important}
+  html[data-only] .over{padding-bottom:calc(max(14px,env(safe-area-inset-bottom)) + 28px)}
+  [data-skin="mattio"] .eyebrow{font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+  [data-skin="mattio"] h1{font-size:clamp(44px,13vw,54px);font-weight:700;letter-spacing:-.026em;line-height:.95}
+  [data-skin="mattio"] h1 span{display:block}
+  [data-skin="mattio"] h1 .ln{opacity:.6}
+  [data-skin="mattio"] h1 .ln::after{content:"."}
+  [data-skin="mattio"] .tag{font-size:24px;font-weight:600;letter-spacing:-.025em}
+  [data-skin="mattio"] .save{background:#fff;color:#0a0a0a;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+  [data-skin="mattio"] .actions button,[data-skin="mattio"] .quick a{font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em;border-radius:99px}
+  [data-skin="mattio"] .visit{font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+  [data-skin="mattio"] .sep{font-weight:600;letter-spacing:.12em}
+
+  /* ---------- Project dock ---------- */
+  .dock{
+    position:fixed;z-index:20;left:50%;transform:translateX(-50%);
+    bottom:max(14px,env(safe-area-inset-bottom));
+    display:flex;gap:2px;padding:5px;
+    background:color-mix(in srgb,var(--surface) 88%,transparent);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border:1px solid var(--line);
+    border-radius:calc(var(--r-btn) + 5px);
+    box-shadow:0 14px 34px -14px rgba(0,0,0,.5);
+    max-width:calc(100vw - 16px);
+    transition:background .3s,border-radius .3s;
+  }
+  .dock button{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    min-width:48px;height:48px;padding:0 12px;border:0;background:none;cursor:pointer;color:var(--ink);
+    border-radius:var(--r-btn);
+    transition:background .25s,color .25s;
+  }
+  .dock i{display:block;width:24px;height:24px;background:currentColor;-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat;flex:none}
+  .dock span{display:none;font:600 12px/1 var(--body);white-space:nowrap}
+  .dock button[aria-current="true"]{background:var(--acc);color:var(--on-acc)}
+  .dock button[aria-current="true"] span{display:block}
+  .dock button:not([aria-current="true"]):hover{background:var(--raise)}
+  @media (max-width:389px){
+    .dock button[aria-current="true"] span{display:none}
+    .dock button{min-width:46px;padding:0 10px}
+  }
+  .hint{
+    position:fixed;z-index:19;left:50%;transform:translateX(-50%);
+    bottom:calc(max(14px,env(safe-area-inset-bottom)) + 70px);
+    padding:7px 12px;font:500 12px/1.2 var(--body);white-space:nowrap;
+    color:var(--surface);background:var(--ink);border-radius:var(--r-btn);
+    opacity:0;pointer-events:none;transition:opacity .35s;
+  }
+  .hint.show{opacity:1}
+
+  /* ---------- Transition stage ---------- */
+  #wipe{position:fixed;inset:0;z-index:40;pointer-events:none;overflow:hidden;visibility:hidden}
+  #wipe.on{visibility:visible}
+  .w{position:absolute;will-change:transform,clip-path}
+  .w-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(58vw,240px);height:88px;opacity:0;background:var(--c,#fff);-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat;will-change:opacity}
+
+  /* ---------- Toast + QR ---------- */
+  #toast{
+    position:fixed;z-index:30;left:50%;bottom:calc(max(14px,env(safe-area-inset-bottom)) + 70px);
+    transform:translate(-50%,10px);width:max-content;max-width:88vw;padding:12px 16px;
+    background:var(--ink);color:var(--surface);border-radius:var(--r-row);
+    font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;
+  }
+  #toast.show{opacity:1;transform:translate(-50%,0)}
+  dialog{border:0;padding:20px;width:min(320px,calc(100vw - 32px));background:var(--qr-bg);color:var(--qr-fg);border-radius:var(--r-card);text-align:center}
+  dialog::backdrop{background:rgba(0,0,0,.72)}
+  dialog h3{margin:0 0 4px;font-family:var(--display);font-size:22px;line-height:1.1}
+  dialog p{margin:0 0 12px;font-size:12.5px;word-break:break-all;opacity:.75}
+  #qrbox svg{display:block;width:100%;height:auto}
+  dialog button{width:100%;min-height:46px;margin-top:12px;border:0;cursor:pointer;background:var(--qr-fg);color:var(--qr-bg);border-radius:var(--r-btn);font-weight:650}
+  :focus-visible{outline:2px solid var(--acc-text);outline-offset:3px}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+
+  /* ---------- Quiet motion ---------- */
+  @media (prefers-reduced-motion:no-preference){
+    .media img{transform-origin:50% 30%;animation:drift 16s ease-in-out infinite alternate}
+    @keyframes drift{from{transform:scale(1)}to{transform:scale(1.07)}}
+  }
+</style>
+</head>
+<body>
+  <div class="fx" aria-hidden="true"></div>
+
+  <main class="card" id="card">
+    <header class="hero">
+      <div class="media"><img id="heroImg" alt="" /><img id="heroClip" alt="" hidden /><video id="heroVid" muted autoplay loop playsinline preload="auto" aria-hidden="true"></video></div>
+      <div class="bar"><img id="logo" alt="" /><span class="count" id="count"></span></div>
+      <div class="over" id="over">
+        <p class="eyebrow" id="eyebrow"></p>
+        <h1><span class="fn" id="fn"></span> <span class="ln" id="ln"></span></h1>
+        <p class="role" id="role"></p>
+        <button class="save" id="saveBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+          <span id="saveLabel"></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="body" id="body">
+      <div class="actions">
+        <button id="shareBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+          <span id="shareLabel"></span>
+        </button>
+        <button id="qrBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v.01M21 21h-4v-4M14 21v-.01"/></svg>
+          <span>QR</span>
+        </button>
+      </div>
+      <div class="quick" id="quick"></div>
+
+      <section class="project">
+        <p class="tag" id="tag"></p>
+        <p class="desc" id="desc"></p>
+        <a class="visit" id="visit" target="_blank" rel="noopener"></a>
+        <div class="promo" id="promo" hidden>
+          <p class="promo-tx" id="promoTx"></p>
+          <div class="promo-row">
+            <button type="button" class="promo-code" id="promoCode"></button>
+            <a class="promo-go" id="promoGo" target="_blank" rel="noopener"></a>
+          </div>
+        </div>
+      </section>
+
+      <p class="sep" id="sepLabel"></p>
+      <nav id="socials"></nav>
+      <footer id="footer"></footer>
+    </div>
+  </main>
+
+  <p class="hint" id="hint" aria-hidden="true"></p>
+  <nav class="dock" id="dock"></nav>
+  <div id="wipe" aria-hidden="true"></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <p class="sr" id="live" aria-live="polite"></p>
+
+  <dialog id="qrDlg">
+    <h3 id="qrTitle"></h3>
+    <p id="qrUrl"></p>
+    <div id="qrbox"></div>
+    <button id="qrClose" type="button"></button>
+  </dialog>
+
+<script>
+/* ========== EDIT HERE: contact details and projects ========== */
+const PERSON = {
+  firstName:"Alessio", lastName:"Bessone",
+  phone:"+393384028463", phoneLabel:"+39 338 402 8463",
+  whatsapp:"393384028463",
+  city:"Cuneo", country:"Italia",
+  linkedin:"https://www.linkedin.com/in/alessio-bessone-a99752263",
+  photo:"assets/img/avatar-alessio.jpg",
+};
+
+/* Order here = order in the dock. Light and dark skins alternate on purpose. */
+const ALL_SKINS = [
+  /* Current employer, first on purpose. Temporary still until the themed portrait exists. */
+  { id:"mattio", name:"Officine Mattio", org:"Officine Mattio Srl", url:"https://www.officinemattio.com", host:"officinemattio.com",
+    email:"alessio@officinemattio.com", theme:"#ffffff",
+    image:"assets/img/retrato-alessio.webp", video:"assets/img/retrato-alessio.mp4", logo:"assets/logos/mattio.svg", mark:"assets/logos/mattio-mark.svg", fonts:['700 16px "Aileron"','600 16px "Aileron"','400 16px "Aileron"'],
+    tag:{pt:"Choose to be.",it:"Choose to be.",en:"Choose to be."},
+    role:{pt:"Coordenador",it:"Coordinatore",en:"Coordinator"},
+    desc:{pt:"Bicicletas projetadas e construídas à mão na Itália, aos pés do Monviso.",it:"Biciclette progettate e costruite a mano in Italia, ai piedi del Monviso.",en:"Bikes designed and hand-built in Italy, at the foot of Monviso."},
+    title:{pt:"Coordenador",it:"Coordinatore",en:"Coordinator"},
+    promo:{ code:"Alessio10",
+      url:{pt:"https://www.officinemattio.com/pt/shop",it:"https://www.officinemattio.com/shop",en:"https://www.officinemattio.com/en/shop"},
+      text:{pt:"10% de desconto na loja online da Officine Mattio",it:"10% di sconto sullo shop online Officine Mattio",en:"10% off at the Officine Mattio online shop"},
+      go:{pt:"Ir à loja",it:"Vai allo shop",en:"Go to shop"} } },
+];
+/* A one-brand build (.claude/build-om.js) sets data-only on <html> and keeps only that skin. */
+const ONLY = document.documentElement.dataset.only || "";
+const SKINS = ONLY ? ALL_SKINS.filter(s=>s.id===ONLY) : ALL_SKINS;
+
+const UI = {
+  pt:{save:"Salvar contato",share:"Compartilhar",connect:"Conecte-se",call:"Ligar",site:"Site",scan:"Escaneie para conectar",done:"Fechar",hint:"Toque para trocar de projeto",saved:"Contato baixado. Abra o arquivo para adicionar.",copied:"Link copiado.",saveFail:"Não deu para baixar. Use o WhatsApp ou o e-mail.",portfolio:"Portfólio",closing:"Do Rio de Janeiro (021) a Cuneo.",qrFail:"Não foi possível gerar o código.",now:"Mostrando",copyCode:"Copiar cupom",codeCopied:"cupom copiado."},
+  it:{save:"Salva il contatto",share:"Condividi",connect:"Restiamo in contatto",call:"Chiama",site:"Sito",scan:"Inquadra per connetterti",done:"Chiudi",hint:"Tocca per cambiare progetto",saved:"Contatto scaricato. Aprilo per aggiungerlo.",copied:"Link copiato.",saveFail:"Download non riuscito. Usa WhatsApp o l'e-mail.",portfolio:"Portfolio",closing:"Da Rio de Janeiro (021) a Cuneo.",qrFail:"Impossibile generare il codice.",now:"Stai vedendo",copyCode:"Copia il codice",codeCopied:"codice copiato."},
+  en:{save:"Save contact",share:"Share",connect:"Connect",call:"Call",site:"Website",scan:"Scan to connect",done:"Done",hint:"Tap to switch project",saved:"Contact downloaded. Open it to add me.",copied:"Link copied.",saveFail:"Download failed. Try WhatsApp or email.",portfolio:"Portfolio",closing:"From Rio de Janeiro (021) to Cuneo.",qrFail:"Could not create the code.",now:"Now showing",copyCode:"Copy code",codeCopied:"code copied."},
+};
+/* ========== Stop editing here ========== */
+
+const $ = id => document.getElementById(id);
+const root = document.documentElement;
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const saveData = !!(navigator.connection && navigator.connection.saveData);
+const browserLang = (navigator.language || "en").slice(0,2).toLowerCase();
+const lang = UI[browserLang] ? browserLang : "en";
+const t = UI[lang];
+root.lang = {pt:"pt-BR",it:"it",en:"en"}[lang];
+
+const ICON = {
+  whatsapp:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.54 2 2.08 6.46 2.08 11.96c0 1.76.46 3.48 1.34 5L2 22l5.18-1.36a9.9 9.9 0 0 0 4.85 1.24h.01c5.5 0 9.96-4.46 9.96-9.96 0-2.66-1.04-5.16-2.92-7.04A9.88 9.88 0 0 0 12.04 2Zm0 18.2a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.07.81.82-3-.2-.31a8.2 8.2 0 0 1-1.26-4.41c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.25 8.23h-.04Zm4.52-6.17c-.25-.12-1.46-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.96-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.99-1.22-.73-.66-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.46-.6 1.66-1.17.21-.58.21-1.07.15-1.17-.06-.11-.23-.17-.48-.29Z"/></svg>',
+  mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+  phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.8.6a2 2 0 0 1 1.7 2.1Z"/></svg>',
+  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>',
+  linkedin:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 5.9V21h-4v-5.5c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H9V9Z"/></svg>',
+  copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>',
+  arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>',
+};
+
+/* ---------- Render one skin's content ---------- */
+let current = null;
+
+function render(s){
+  const i = SKINS.indexOf(s);
+  root.dataset.skin = s.id;
+  document.querySelector('meta[name="theme-color"]').content = s.theme;
+  document.title = `${PERSON.firstName} ${PERSON.lastName} · ${s.name}`;
+
+  $("heroImg").src = s.image || "";
+  const vid = $("heroVid");
+  vid.classList.remove("on");
+  if (vid.getAttribute("src")){ vid.pause(); vid.removeAttribute("src"); vid.load(); }
+  /* The still keeps its slow zoom until the clip is really playing, so the hero never looks frozen. */
+  vid.onplaying = vid.oncanplay = null;
+  const clip = $("heroClip");
+  clip.hidden = true; clip.removeAttribute("src");
+  if (s.video && !reduced && !saveData){
+    vid.onplaying = () => vid.classList.add("on");
+    vid.oncanplay = tryPlay;
+    vid.muted = true; vid.defaultMuted = true; vid.playsInline = true; vid.autoplay = true;
+    vid.src = s.video;
+    tryPlay();
+  }
+
+  $("logo").src = s.logo; $("logo").alt = s.name;
+  $("count").textContent = `${String(i+1).padStart(2,"0")} / ${String(SKINS.length).padStart(2,"0")}`;
+  $("eyebrow").textContent = `${PERSON.city} · ${PERSON.country}`;
+  $("fn").textContent = PERSON.firstName;
+  $("ln").textContent = PERSON.lastName;
+  $("role").textContent = (s.role && s.role[lang]) || "";
+  $("role").hidden = !$("role").textContent;
+  $("tag").textContent = s.tag[lang];
+  $("desc").textContent = s.desc[lang];
+  $("visit").href = s.url;
+  $("visit").innerHTML = `${s.host}${ICON.arrow}`;
+  $("promo").hidden = !s.promo;
+  if (s.promo){
+    $("promoTx").textContent = s.promo.text[lang];
+    $("promoCode").innerHTML = `${s.promo.code}${ICON.copy}`;
+    $("promoCode").setAttribute("aria-label", `${t.copyCode}: ${s.promo.code}`);
+    $("promoGo").href = s.promo.url[lang];
+    $("promoGo").innerHTML = `${s.promo.go[lang]}${ICON.arrow}`;
+  }
+
+  $("quick").innerHTML = [
+    PERSON.whatsapp && {ic:"whatsapp", label:"WhatsApp", href:`https://wa.me/${PERSON.whatsapp}`},
+    s.email && {ic:"mail", label:"E-mail", href:`mailto:${s.email}`},
+    PERSON.phone && {ic:"phone", label:t.call, href:`tel:${PERSON.phone}`},
+  ].filter(Boolean).map(q=>`<a href="${q.href}">${ICON[q.ic]}<span>${q.label}</span></a>`).join("");
+
+  const rows = PERSON.linkedin ? [{ic:"linkedin", name:"LinkedIn", sub:`${PERSON.firstName} ${PERSON.lastName}`, url:PERSON.linkedin}] : [];
+  if (PERSON.portfolio && !PERSON.portfolio.includes(s.host) && !ONLY) rows.push({ic:"globe", name:t.portfolio, sub:PERSON.portfolio.replace(/^https?:\/\/(www\.)?/,""), url:PERSON.portfolio});
+  $("sepLabel").hidden = $("socials").hidden = !rows.length;
+  $("socials").innerHTML = rows.map(r=>`<a class="social" href="${r.url}" target="_blank" rel="noopener"><span class="ic">${ICON[r.ic]}</span><span class="tx"><span class="name">${r.name}</span><span class="sub">${r.sub}</span></span><span class="go">${ICON.arrow}</span></a>`).join("");
+
+  [...$("dock").children].forEach((b,n)=>b.setAttribute("aria-current", n===i ? "true" : "false"));
+  current = s;
+}
+
+/* Phones can refuse or delay the first play(): set every autoplay flag in code and try again on the next signal. */
+function tryPlay(){
+  const v = $("heroVid");
+  if (!v.getAttribute("src") || !v.paused || !$("heroClip").hidden) return;
+  v.muted = true; v.defaultMuted = true; v.playsInline = true;
+  v.play().catch(e=>{ if (e.name === "NotAllowedError") useClip(); });
+}
+/* Where autoplay is refused, Safari still plays a silent MP4 in an <img>. Elsewhere it errors and the still stays. */
+function useClip(){
+  const v = $("heroVid"), clip = $("heroClip"), src = v.getAttribute("src");
+  if (!src || !v.paused || !clip.hidden) return;
+  clip.onerror = () => { clip.hidden = true; clip.removeAttribute("src"); clip.dataset.failed = "1"; };
+  if (clip.dataset.failed) return;
+  clip.src = src;
+  clip.hidden = false;
+}
+["pointerdown","touchstart","scroll"].forEach(ev=>addEventListener(ev,tryPlay,{passive:true}));
+addEventListener("pageshow",tryPlay);
+document.addEventListener("visibilitychange",()=>{ if (!document.hidden) tryPlay(); });
+setInterval(()=>{ if (!document.hidden) tryPlay(); },2000);
+
+/* Static labels */
+$("saveLabel").textContent = t.save;
+$("shareLabel").textContent = t.share;
+$("sepLabel").textContent = t.connect;
+$("footer").textContent = ONLY ? `${SKINS[0].org || SKINS[0].name} · ${PERSON.city}` : t.closing;
+if (SKINS.length < 2){ $("dock").hidden = true; $("hint").hidden = true; $("count").hidden = true; hideHint.done = true; }
+$("qrTitle").textContent = t.scan;
+$("qrClose").textContent = t.done;
+$("hint").textContent = t.hint;
+
+/* Dock */
+$("dock").setAttribute("aria-label","Projetos");
+$("dock").innerHTML = SKINS.map(s=>`<button type="button" aria-label="${s.name}" data-id="${s.id}"><i style="-webkit-mask-image:url(${s.mark});mask-image:url(${s.mark})"></i><span>${s.name}</span></button>`).join("");
+
+/* ---------- Transitions: each project enters with its own gesture ---------- */
+const box = () => ({w:innerWidth, h:innerHeight, R:Math.hypot(innerWidth,innerHeight)});
+const EASE = { mattio:"cubic-bezier(.7,0,.2,1)" };
+const css = o => Object.entries(o).map(([k,v])=>`${k}:${v}`).join(";");
+
+/* Each builder returns layers (bottom to top) with enter and exit keyframes. */
+const GESTURES = {
+  /* An iris, after the eye on the site's home page: it opens from the centre and closes back into it */
+  mattio:() => {
+    const {w,h,R} = box(), x = w/2, y = h/2;
+    return {
+      logoColor:"#fff", logo:"assets/logos/mattio-mark.svg",
+      layers:["#292d30","#0a0a0a"].map(c=>({
+        style:css({inset:"0",background:c}),
+        enter:[{clipPath:`circle(0px at ${x}px ${y}px)`},{clipPath:`circle(${R/2+4}px at ${x}px ${y}px)`}],
+        exit:[{clipPath:`circle(${R/2+4}px at ${x}px ${y}px)`},{clipPath:`circle(0px at ${x}px ${y}px)`}],
+      })),
+    };
+  },
+};
+
+const wait = ms => new Promise(r=>setTimeout(r,ms));
+/* A hidden tab can stall animations. A timeout keeps a swap from ever getting stuck. */
+const settled = (anim, ms) => Promise.race([anim.finished, wait(ms+250)]).catch(()=>{});
+const fontsFor = s => Promise.all(s.fonts.map(f=>document.fonts.load(f).catch(()=>{})));
+function assetsFor(s){
+  const jobs = [fontsFor(s)];
+  for (const src of [s.image, s.logo]) if (src) { const im = new Image(); im.src = src; jobs.push(im.decode().catch(()=>{})); }
+  return Promise.all(jobs);
+}
+
+function revealContent(ease){
+  if (reduced) return;
+  [...$("over").children,...$("body").children].slice(0,8).forEach((el,n)=>{
+    el.animate([{opacity:0,transform:"translateY(12px)"},{opacity:1,transform:"none"}],
+      {duration:520,delay:n*38,easing:ease,fill:"backwards"});
+  });
+}
+
+let busy = false, pending = null;
+
+async function go(id, origin){
+  const next = SKINS.find(s=>s.id===id);
+  if (!next) return;
+  if (busy){ pending = {id,origin}; markDock(next); return; }
+  if (current === next) return;
+  busy = true;
+  hideHint(true);
+  markDock(next);
+  try { history.replaceState(null,"",`#${next.id}`); } catch(e){}
+
+  if (reduced){ await assetsFor(next); render(next); }
+  else { await runGesture(next, origin); }
+
+  $("live").textContent = `${t.now}: ${next.name}`;
+  finishSwap();
+}
+
+function finishSwap(){
+  busy = false;
+  if (pending){ const p = pending; pending = null; if (p.id !== current.id) go(p.id,p.origin); else markDock(current); }
+}
+
+function markDock(s){
+  [...$("dock").children].forEach(b=>b.setAttribute("aria-current", b.dataset.id===s.id ? "true" : "false"));
+}
+
+async function runGesture(next, origin){
+  const wipe = $("wipe"), {w,h} = box();
+  const at = origin || {x:w/2,y:h-40};
+  const g = GESTURES[next.id](at);
+  const easing = EASE[next.id];
+  wipe.innerHTML = g.layers.map(l=>`<div class="w" style="${l.style}">${l.html||""}</div>`).join("")
+    + `<div class="w-logo" style="--c:${g.logoColor};-webkit-mask-image:url(${g.logo});mask-image:url(${g.logo})"></div>`;
+  wipe.classList.add("on");
+  const els = [...wipe.querySelectorAll(".w")], logo = wipe.querySelector(".w-logo");
+  const STEP = 70, IN = 520, OUT = 520, LOGO_HOLD = 750;
+
+  const ready = Promise.race([assetsFor(next), wait(700)]);
+  await Promise.all(g.layers.map((l,i)=>
+    settled(els[i].animate(l.enter,{duration:IN,delay:i*STEP,easing,fill:"both"}), IN+i*STEP)));
+  logo.animate([{opacity:0},{opacity:1}],{duration:220,fill:"forwards"});
+
+  await ready;
+  render(next);
+  scrollTo({top:0,behavior:"instant"});
+  await wait(LOGO_HOLD);
+
+  logo.animate([{opacity:1},{opacity:0}],{duration:160,fill:"forwards"});
+  revealContent(easing);
+  const last = g.layers.length-1;
+  await Promise.all(g.layers.map((l,i)=>
+    settled(els[i].animate(l.exit,{duration:OUT,delay:(last-i)*STEP,easing,fill:"both"}), OUT+(last-i)*STEP)));
+
+  wipe.classList.remove("on");
+  wipe.innerHTML = "";
+}
+
+/* Inputs: dock, swipe, keyboard, and links ending in #project */
+$("dock").addEventListener("click",e=>{
+  const b = e.target.closest("button"); if (!b) return;
+  const r = b.getBoundingClientRect();
+  go(b.dataset.id,{x:r.left+r.width/2,y:r.top+r.height/2});
+});
+function step(d){
+  if (!current) return;
+  const i = SKINS.indexOf(current);
+  go(SKINS[(i+d+SKINS.length)%SKINS.length].id);
+}
+let tx=0,ty=0,ts=0;
+$("card").addEventListener("touchstart",e=>{const p=e.changedTouches[0];tx=p.clientX;ty=p.clientY;ts=Date.now();},{passive:true});
+$("card").addEventListener("touchend",e=>{
+  const p=e.changedTouches[0],dx=p.clientX-tx,dy=p.clientY-ty;
+  if (Math.abs(dx)>70 && Math.abs(dx)>Math.abs(dy)*2 && Date.now()-ts<600) step(dx<0?1:-1);
+},{passive:true});
+addEventListener("keydown",e=>{
+  if ($("qrDlg").open) return;
+  if (e.key==="ArrowRight") step(1);
+  if (e.key==="ArrowLeft") step(-1);
+});
+addEventListener("hashchange",()=>{const id=location.hash.slice(1);if (id&&(!current||id!==current.id)) go(id);});
+
+/* ---------- vCard: name, the active project, every site, and the photo ---------- */
+const vEsc = s => String(s).replace(/\\/g,"\\\\").replace(/([,;])/g,"\\$1").replace(/\n/g,"\\n");
+const fold = line => line.length<=74 ? line : line.match(/.{1,74}/g).join("\r\n ");
+async function photoLine(){
+  try{
+    const b = await (await fetch(PERSON.photo)).blob();
+    const b64 = await new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>ok(String(r.result).split(",")[1]);r.onerror=no;r.readAsDataURL(b);});
+    return fold(`PHOTO;ENCODING=b;TYPE=JPEG:${b64}`);
+  }catch(e){ return ""; }
+}
+async function buildVCard(){
+  const s = current, full = `${PERSON.firstName} ${PERSON.lastName}`;
+  return [
+    "BEGIN:VCARD","VERSION:3.0",
+    `N:${vEsc(PERSON.lastName)};${vEsc(PERSON.firstName)};;;`,
+    `FN:${vEsc(full)}`,
+    `ORG:${vEsc(s.org || s.name)}`,
+    s.title && s.title[lang] && `TITLE:${vEsc(s.title[lang])}`,
+    PERSON.phone && `TEL;TYPE=CELL,VOICE:${PERSON.phone}`,
+    s.email && `EMAIL;TYPE=INTERNET:${s.email}`,
+    `URL:${s.url}`,
+    ...SKINS.filter(x=>x!==s).map(x=>`URL:${x.url}`),
+    PERSON.linkedin && `URL:${PERSON.linkedin}`,
+    `ADR;TYPE=WORK:;;;${vEsc(PERSON.city)};;;${vEsc(PERSON.country)}`,
+    await photoLine(),
+    "END:VCARD",
+  ].filter(Boolean).join("\r\n");
+}
+function toast(msg){
+  const el = $("toast"); el.textContent = msg; el.classList.add("show");
+  clearTimeout(toast.t); toast.t = setTimeout(()=>el.classList.remove("show"),3200);
+}
+$("saveBtn").addEventListener("click",async()=>{
+  try{
+    const blob = new Blob([await buildVCard()],{type:"text/vcard;charset=utf-8"});
+    const url = URL.createObjectURL(blob), a = document.createElement("a");
+    a.href = url; a.download = `${PERSON.firstName} ${PERSON.lastName}.vcf`;
+    document.body.appendChild(a); a.click();
+    setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},1500);
+    toast(t.saved);
+  }catch(e){ toast(t.saveFail); }
+});
+
+/* ---------- Discount code: one tap copies it ---------- */
+$("promoCode").addEventListener("click",async()=>{
+  const code = current.promo && current.promo.code;
+  if (!code) return;
+  try{ await navigator.clipboard.writeText(code); toast(`${code} · ${t.codeCopied}`); }
+  catch(e){
+    const r = document.createRange(); r.selectNodeContents($("promoCode"));
+    const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    toast(code);
+  }
+});
+
+/* ---------- Share keeps the active project in the link ---------- */
+$("shareBtn").addEventListener("click",async()=>{
+  const url = location.origin+location.pathname+`#${current.id}`;
+  try{
+    if (navigator.share) await navigator.share({title:`${PERSON.firstName} ${PERSON.lastName}`,url});
+    else { await navigator.clipboard.writeText(url); toast(t.copied); }
+  }catch(e){ /* share sheet dismissed */ }
+});
+
+/* ---------- QR is drawn on open, so it follows the active project and skin ---------- */
+function loadQR(){
+  if (typeof qrcode==="function") return Promise.resolve();
+  return new Promise((ok,no)=>{const s=document.createElement("script");s.src="assets/qr.js";s.onload=ok;s.onerror=no;document.head.appendChild(s);});
+}
+$("qrBtn").addEventListener("click",async()=>{
+  const url = location.origin+location.pathname+`#${current.id}`;
+  $("qrUrl").textContent = url.replace(/^https?:\/\//,"");
+  const cs = getComputedStyle(root);
+  try{
+    await loadQR();
+    const qr = qrcode(0,"M"); qr.addData(url); qr.make();
+    $("qrbox").innerHTML = qr.createSvgTag({cellSize:8,margin:8,scalable:true})
+      .replace(/fill="white"/g,`fill="${cs.getPropertyValue("--qr-bg").trim()}"`)
+      .replace(/fill="black"/g,`fill="${cs.getPropertyValue("--qr-fg").trim()}"`);
+  }catch(e){ $("qrbox").textContent = t.qrFail; }
+  $("qrDlg").showModal();
+});
+$("qrClose").addEventListener("click",()=>$("qrDlg").close());
+$("qrDlg").addEventListener("click",e=>{ if (e.target===$("qrDlg")) $("qrDlg").close(); });
+
+/* ---------- Boot ---------- */
+function hideHint(forever){
+  $("hint").classList.remove("show");
+  if (forever) hideHint.done = true;
+}
+/* The card opens with the selected project's own gesture and logo. */
+const firstSkin = SKINS.find(s=>s.id===location.hash.slice(1)) || SKINS[0];
+if (reduced) render(firstSkin);
+else {
+  root.dataset.skin = firstSkin.id;
+  document.querySelector('meta[name="theme-color"]').content = firstSkin.theme;
+  markDock(firstSkin);
+  busy = true;
+  runGesture(firstSkin).then(finishSwap);
+}
+setTimeout(()=>{ if (!hideHint.done){ $("hint").classList.add("show"); setTimeout(()=>hideHint(),5000); } },1400);
+
+/* Warm the other skins once the page is idle, so the first swap has no flash */
+const idle = window.requestIdleCallback || (f=>setTimeout(f,1200));
+if (!saveData) idle(()=>SKINS.forEach(s=>{ if (s!==current) assetsFor(s); [s.mark].forEach(m=>{new Image().src=m;}); }));
+</script>
+</body>
+</html>
